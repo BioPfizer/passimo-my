@@ -351,8 +351,25 @@
     </style>
 </head>
 <body>
-    <!-- Navbar Placeholder -->
-    <div id="navbar-placeholder"></div>
+    <!-- navbar.html -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">PASSIMO</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-page="index">Home</a></li>
+                <li><a href="services.html" data-page="services">Services</a></li>
+                <li><a href="events.html" data-page="events">Events</a></li>
+                <li><a href="platform.html" data-page="platform">Platform</a></li>
+                <li><a href="payment.html" data-page="payment">Payment</a></li>
+                <li><a href="legal.html" data-page="legal">Legal</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
     <!-- Services Hero -->
     <section class="services-hero">
         <div class="container">
@@ -464,8 +481,7 @@
             <a href="#" class="cta-button">🚀 Join Discord Now</a>
         </div>
     </section>
-    <!-- Load navbar script -->
-    <script src="Script.js"></script>
+
     <script>
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
