@@ -1,0 +1,492 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Passimo | Skip Every Queue</title>
+
+    <!-- Link to navbar CSS -->
+    <link rel="stylesheet" href="Style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+
+        /* Color Variables */
+        :root {
+            --navy-dark: #1a2332;
+            --navy-medium: #2c3e50;
+            --blue-gray: #7f8c8d;
+            --warm-beige: #a69588;
+            --energy-orange: #e74c3c;
+        }
+
+        /* Hero Section */
+        .services-hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-medium) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .services-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .services-hero .highlight {
+            color: var(--energy-orange);
+        }
+
+        .services-hero p {
+            font-size: 1.2rem;
+            color: var(--blue-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Service Tiers */
+        .service-tiers {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--navy-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--blue-gray);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .single-tier {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .tier-card.featured {
+            max-width: 400px;
+            border: 3px solid var(--energy-orange);
+            background: linear-gradient(135deg, white 0%, #fef9f9 100%);
+            box-shadow: 0 25px 60px rgba(231, 76, 60, 0.15);
+        }
+
+            .tier-card.featured::before {
+                content: 'QUEUE SKIP SERVICE';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: var(--energy-orange);
+                color: white;
+                font-size: 0.8rem;
+                font-weight: bold;
+                padding: 0.5rem;
+            }
+
+        .price-note {
+            font-size: 0.9rem;
+            color: var(--blue-gray);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .tier-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+            }
+
+            .tier-card.popular {
+                border: 3px solid var(--energy-orange);
+                transform: scale(1.05);
+            }
+
+                .tier-card.popular::before {
+                    content: 'MOST POPULAR';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    background: var(--energy-orange);
+                    color: white;
+                    font-size: 0.8rem;
+                    font-weight: bold;
+                    padding: 0.5rem;
+                }
+
+        .tier-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--energy-orange), #ff6b4a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .tier-name {
+            font-size: 1.5rem;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .tier-price {
+            font-size: 2.5rem;
+            color: var(--energy-orange);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .tier-description {
+            color: var(--blue-gray);
+            margin-bottom: 2rem;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+            .tier-features li {
+                padding: 0.5rem 0;
+                color: var(--navy-medium);
+                position: relative;
+                padding-left: 1.5rem;
+            }
+
+                .tier-features li::before {
+                    content: '✓';
+                    position: absolute;
+                    left: 0;
+                    color: var(--energy-orange);
+                    font-weight: bold;
+                }
+
+        .tier-button {
+            background: linear-gradient(45deg, var(--energy-orange), #ff6b4a);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+            .tier-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+            }
+
+        /* Service Details */
+        .service-details {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .detail-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .detail-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--navy-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--energy-orange);
+        }
+
+        .detail-card h3 {
+            color: var(--navy-dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .detail-card p {
+            color: var(--blue-gray);
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 0;
+            background: var(--navy-dark);
+            color: white;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--navy-medium);
+            padding-bottom: 1.5rem;
+        }
+
+        .faq-question {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            color: var(--blue-gray);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background: linear-gradient(45deg, var(--energy-orange), #ff6b4a);
+            text-align: center;
+            color: white;
+        }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .cta-section p {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+            }
+
+        .cta-button {
+            background: white;
+            color: var(--energy-orange);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .services-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tier-card.popular {
+                transform: none;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+    <!-- Services Hero -->
+    <section class="services-hero">
+        <div class="container">
+            <h1>Our <span class="highlight">Services</span></h1>
+            <p>Choose the perfect queue-cutting solution for your concert experience. From basic fast-track to VIP treatment, we've got you covered.</p>
+        </div>
+    </section>
+
+    <!-- Service Tiers -->
+    <section class="service-tiers">
+        <div class="container">
+            <h2 class="section-title">Our Service</h2>
+            <p class="section-subtitle">Simple, effective queue-cutting solution for concert lovers in Malaysia</p>
+
+            <div class="single-tier">
+                <div class="tier-card featured">
+                    <div class="tier-icon">⚡</div>
+                    <h3 class="tier-name">Passimo Queue Skip</h3>
+                    <div class="tier-price">RM50</div>
+                    <div class="price-note">One-time payment per event</div>
+                    <p class="tier-description">Skip the queue and get faster entry to your favorite concerts. Simple, reliable, effective.</p>
+                    <ul class="tier-features">
+                        <li>Skip general admission lines</li>
+                        <li>Faster venue entry</li>
+                        <li>Discord community access</li>
+                        <li>Event coordination support</li>
+                        <li>Money-back guarantee</li>
+                        <li>Real-time updates via Discord</li>
+                    </ul>
+                    <button class="tier-button">🎵 Join Discord & Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Details -->
+    <section class="service-details">
+        <div class="container">
+            <h2 class="section-title">How We Make It Happen</h2>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <div class="detail-icon">🔗</div>
+                    <h3>Strategic Partnerships</h3>
+                    <p>We work directly with venues and event organizers to secure fast-track access for our community members.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">📱</div>
+                    <h3>Real-Time Coordination</h3>
+                    <p>Our Discord server provides live updates, queue status, and coordination to ensure smooth entry for all members.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">🛡️</div>
+                    <h3>Guaranteed Service</h3>
+                    <p>If we can't deliver on our promise, you get a full refund. Your satisfaction and trust are our top priorities.</p>
+                </div>
+                <div class="detail-card">
+                    <div class="detail-icon">👥</div>
+                    <h3>Community Support</h3>
+                    <p>Join thousands of music lovers who share tips, experiences, and help each other make the most of every concert.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-container">
+                <h2 class="section-title" style="color: white;">Frequently Asked Questions</h2>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">How does the queue cutting actually work?</h3>
+                    <p class="faq-answer">We coordinate with venues and use strategic partnerships to provide designated fast-track entries. You'll receive specific instructions via Discord before each event.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Is this legal and safe?</h3>
+                    <p class="faq-answer">Absolutely! We work within venue guidelines and event policies. All our services are legitimate and authorized by event organizers.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">What if the service doesn't work?</h3>
+                    <p class="faq-answer">We offer a 100% money-back guarantee. If we can't deliver faster entry as promised, you get a full refund, no questions asked.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">How far in advance should I book?</h3>
+                    <p class="faq-answer">We recommend booking at least 48 hours before the event. For major concerts and festivals, earlier booking ensures better availability.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">How much does it cost?</h3>
+                    <p class="faq-answer">Our service costs RM50 per event as a one-time payment. You pay only when you want to use our queue-cutting service for a specific concert.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Do I need to pay monthly?</h3>
+                    <p class="faq-answer">No monthly fees! You only pay RM50 when you want to skip the queue for a specific event. No subscriptions, no recurring charges.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Skip Every Queue?</h2>
+            <p>Join our Discord community and start experiencing concerts like never before</p>
+            <a href="#" class="cta-button">🚀 Join Discord Now</a>
+        </div>
+    </section>
+    <!-- Load navbar script -->
+    <script src="Script.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Tier button interactions
+        document.querySelectorAll('.tier-button').forEach(button => {
+            button.addEventListener('click', function () {
+                // This would typically redirect to Discord or payment
+                alert('Redirecting to Discord server...');
+            });
+        });
+    </script>
+</body>
+</html>

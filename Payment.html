@@ -1,0 +1,587 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Passimo | DuitNow QR Payment</title>
+
+    <!-- Link to navbar CSS -->
+    <link rel="stylesheet" href="Style.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+
+        /* Color Variables */
+        :root {
+            --navy-dark: #1a2332;
+            --navy-medium: #2c3e50;
+            --blue-gray: #7f8c8d;
+            --warm-beige: #a69588;
+            --energy-orange: #e74c3c;
+        }
+       
+        /* Hero Section */
+        .payment-hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-medium) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .payment-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-hero .highlight {
+            color: var(--energy-orange);
+        }
+
+        .payment-hero p {
+            font-size: 1.2rem;
+            color: var(--blue-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .payment-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 3px solid var(--energy-orange);
+            position: relative;
+        }
+
+        .qr-header {
+            margin-bottom: 2rem;
+        }
+
+            .qr-header h2 {
+                color: var(--navy-dark);
+                margin-bottom: 0.5rem;
+                font-size: 1.8rem;
+            }
+
+            .qr-header p {
+                color: var(--blue-gray);
+                font-size: 1rem;
+            }
+
+        .price-display {
+            background: var(--energy-orange);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .qr-container {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(45deg, #f8f9fa, white);
+            border: 2px dashed var(--blue-gray);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-placeholder {
+            color: var(--blue-gray);
+            font-size: 1rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .qr-refresh-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--energy-orange);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .refresh-timer {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--energy-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .qr-instructions {
+            color: var(--blue-gray);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* Payment Instructions */
+        .instructions-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+            .instructions-section h3 {
+                color: var(--navy-dark);
+                margin-bottom: 2rem;
+                font-size: 1.5rem;
+            }
+
+        .payment-steps {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+            .payment-steps li {
+                counter-increment: step-counter;
+                margin-bottom: 1.5rem;
+                padding-left: 3rem;
+                position: relative;
+                color: var(--blue-gray);
+                line-height: 1.6;
+            }
+
+                .payment-steps li::before {
+                    content: counter(step-counter);
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    background: var(--energy-orange);
+                    color: white;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                    font-size: 0.9rem;
+                }
+
+                .payment-steps li strong {
+                    color: var(--navy-dark);
+                }
+
+        .discord-info {
+            background: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--energy-orange);
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 0 10px 10px 0;
+        }
+
+            .discord-info h4 {
+                color: var(--energy-orange);
+                margin-bottom: 0.5rem;
+            }
+
+            .discord-info p {
+                color: var(--navy-medium);
+                font-size: 0.9rem;
+            }
+
+        /* Security Features */
+        .security-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--navy-dark);
+            margin-bottom: 3rem;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .security-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .security-icon {
+            font-size: 2.5rem;
+            color: var(--energy-orange);
+            margin-bottom: 1rem;
+        }
+
+        .security-item h4 {
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .security-item p {
+            color: var(--blue-gray);
+            font-size: 0.9rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 0;
+            background: var(--navy-dark);
+            color: white;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--energy-orange);
+        }
+
+        .faq-question {
+            font-size: 1.1rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .faq-answer {
+            color: var(--blue-gray);
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background: linear-gradient(45deg, var(--energy-orange), #ff6b4a);
+            text-align: center;
+            color: white;
+        }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .cta-section p {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+            }
+
+        .cta-button {
+            background: white;
+            color: var(--energy-orange);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .payment-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .payment-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .qr-code {
+                width: 200px;
+                height: 200px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+    <!-- Payment Hero -->
+    <section class="payment-hero">
+        <div class="container">
+            <h1>Quick <span class="highlight">Payment</span></h1>
+            <p>Simple DuitNow QR payment - scan, pay, and get ready to skip the queue!</p>
+        </div>
+    </section>
+
+    <!-- Payment Section -->
+    <section class="payment-section">
+        <div class="container">
+            <div class="payment-container">
+                <!-- QR Code Section -->
+                <div class="qr-section">
+                    <div class="qr-header">
+                        <h2>Scan to Pay</h2>
+                        <p>Use any banking app with DuitNow QR</p>
+                    </div>
+
+                    <div class="price-display">RM50</div>
+
+                    <div class="refresh-timer">
+                        🔄 QR refreshes in: <span id="timer">60</span>s
+                    </div>
+
+                    <div class="qr-container">
+                        <div class="qr-code" id="qrCode">
+                            <!-- Placeholder - Replace with actual QR code -->
+                            <div class="qr-placeholder">
+                                📱<br>
+                                <strong>DuitNow QR Code</strong><br>
+                                <small>Will be inserted here</small>
+                            </div>
+                            <!-- For actual QR: <img src="your-duitnow-qr.png" alt="DuitNow QR" style="width:100%; height:100%; object-fit:contain;"> -->
+                        </div>
+                        <div class="qr-refresh-indicator">🔄</div>
+                    </div>
+
+                    <div class="qr-instructions">
+                        <p>
+                            <strong>Supported Apps:</strong><br>
+                            Maybank, CIMB, Public Bank, RHB, AmBank, Hong Leong, and all DuitNow-enabled banking apps
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Instructions Section -->
+                <div class="instructions-section">
+                    <h3>Payment Instructions</h3>
+                    <ol class="payment-steps">
+                        <li><strong>Open your banking app</strong> and navigate to the QR scanner or DuitNow section</li>
+                        <li><strong>Scan the QR code</strong> displayed on the left - amount RM50 should auto-fill</li>
+                        <li><strong>Complete the payment</strong> in your banking app and take a screenshot of the receipt</li>
+                        <li><strong>Join our Discord server</strong> using the link below if you haven't already</li>
+                        <li><strong>Send payment proof</strong> to our customer support channel in Discord with your event details</li>
+                        <li><strong>Get confirmation</strong> and event coordination instructions via Discord DM</li>
+                    </ol>
+
+                    <div class="discord-info">
+                        <h4>📢 Important: Discord Verification Required</h4>
+                        <p>After payment, you MUST send your receipt screenshot to our Discord customer support to verify and activate your queue-cutting service. This usually takes 2-5 minutes during business hours.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section class="security-section">
+        <div class="container">
+            <h2 class="section-title">Safe & Secure</h2>
+            <div class="security-grid">
+                <div class="security-item">
+                    <div class="security-icon">🏦</div>
+                    <h4>Bank-Level Security</h4>
+                    <p>DuitNow payments are processed directly through your bank's secure systems</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">🔒</div>
+                    <h4>No Card Details</h4>
+                    <p>No need to share credit card or personal banking information</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">⚡</div>
+                    <h4>Instant Transfer</h4>
+                    <p>Real-time payment confirmation through DuitNow network</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon">💯</div>
+                    <h4>Money-Back Guarantee</h4>
+                    <p>Full refund if we can't deliver our queue-cutting service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="faq-container">
+                <h2 class="section-title" style="color: white;">Payment FAQ</h2>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">What if I don't have DuitNow?</h3>
+                    <p class="faq-answer">All major Malaysian banks support DuitNow QR. Check with your bank to enable this feature in your mobile banking app - it's usually free and instant to set up.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">How long does verification take?</h3>
+                    <p class="faq-answer">Payment verification via Discord typically takes 2-5 minutes during business hours (9AM-11PM). Outside these hours, it may take up to 2 hours.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">What if I accidentally paid twice?</h3>
+                    <p class="faq-answer">Contact our Discord support immediately with both payment receipts. We'll refund the extra payment within 24 hours.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Can I get a refund?</h3>
+                    <p class="faq-answer">Yes! If we can't deliver our queue-cutting service as promised, or if you need to cancel 24+ hours before the event, you get a full RM50 refund.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Is the QR code safe to scan?</h3>
+                    <p class="faq-answer">Absolutely! Our DuitNow QR is bank-verified and only contains payment information. Your banking app will show you the amount and recipient before you confirm.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Pay & Skip?</h2>
+            <p>Join Discord first, then come back to complete your payment!</p>
+            <a href="#" class="cta-button">🎵 Join Discord Server</a>
+        </div>
+    </section>
+    <!-- Load navbar script -->
+    <script src="Script.js"></script>
+    <script>
+        // Timer countdown and QR refresh simulation
+        let timeLeft = 60;
+        const timerElement = document.getElementById('timer');
+
+        function updateTimer() {
+            timerElement.textContent = timeLeft;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                timeLeft = 60;
+                // Simulate QR refresh with visual effect
+                const qrCode = document.getElementById('qrCode');
+                qrCode.style.opacity = '0.5';
+                setTimeout(() => {
+                    qrCode.style.opacity = '1';
+                    // Here you would actually refresh the QR code
+                    console.log('QR Code refreshed at:', new Date().toLocaleTimeString());
+                }, 500);
+            }
+        }
+
+        // Update timer every second
+        setInterval(updateTimer, 1000);
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add pulse effect to QR code every 60 seconds
+        setInterval(() => {
+            const qrCode = document.getElementById('qrCode');
+            qrCode.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                qrCode.style.transform = 'scale(1)';
+            }, 200);
+        }, 60000);
+
+        // Simulate QR refresh visual feedback
+        const refreshIndicator = document.querySelector('.qr-refresh-indicator');
+        setInterval(() => {
+            refreshIndicator.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                refreshIndicator.style.transform = 'rotate(0deg)';
+            }, 500);
+        }, 60000);
+    </script>
+</body>
+</html>

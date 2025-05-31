@@ -1,0 +1,537 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - Passimo | Our Concert Portfolio</title>
+
+    <!-- Link to navbar CSS -->
+    <link rel="stylesheet" href="Style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+
+        /* Color Variables */
+        :root {
+            --navy-dark: #1a2332;
+            --navy-medium: #2c3e50;
+            --blue-gray: #7f8c8d;
+            --warm-beige: #a69588;
+            --energy-orange: #e74c3c;
+        }
+
+        /* Hero Section */
+        .events-hero {
+            padding: 8rem 0 4rem;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-medium) 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .events-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .events-hero .highlight {
+            color: var(--energy-orange);
+        }
+
+        .events-hero p {
+            font-size: 1.2rem;
+            color: var(--blue-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 3rem 0;
+            background: var(--energy-orange);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .stat-item p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        /* Events Grid */
+        .events-gallery {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--navy-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--blue-gray);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+            .event-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+            }
+
+        .event-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--energy-orange) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .event-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .event-placeholder {
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+        }
+
+        .event-info {
+            padding: 2rem;
+        }
+
+        .event-date {
+            color: var(--energy-orange);
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-title {
+            font-size: 1.5rem;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .event-venue {
+            color: var(--blue-gray);
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .event-description {
+            color: var(--blue-gray);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-success {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--energy-orange);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Upcoming Events */
+        .upcoming-events {
+            padding: 5rem 0;
+            background: var(--navy-dark);
+            color: white;
+        }
+
+        .upcoming-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+            .upcoming-card h3 {
+                color: var(--energy-orange);
+                margin-bottom: 1rem;
+                font-size: 1.5rem;
+            }
+
+            .upcoming-card p {
+                color: var(--blue-gray);
+                margin-bottom: 2rem;
+            }
+
+        .notify-button {
+            background: var(--energy-orange);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .notify-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
+            }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background: linear-gradient(45deg, var(--energy-orange), #ff6b4a);
+            text-align: center;
+            color: white;
+        }
+
+            .cta-section h2 {
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .cta-section p {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+            }
+
+        .cta-button {
+            background: white;
+            color: var(--energy-orange);
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+            }
+
+        /* Modal for Image Viewing */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            margin-top: 5%;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .events-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Events Hero -->
+    <section class="events-hero">
+        <div class="container">
+            <h1>Our <span class="highlight">Events</span></h1>
+            <p>Check out the concerts and events where Passimo has successfully helped music fans skip the queues and get faster entry.</p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p>Events Served</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1000+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Success Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>5★</h3>
+                    <p>Customer Rating</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Gallery -->
+    <section class="events-gallery">
+        <div class="container">
+            <h2 class="section-title">Past Events</h2>
+            <p class="section-subtitle">See where we've made a difference for concert-goers across Malaysia</p>
+
+            <div class="events-grid">
+                <!-- Event Card 1 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <div class="event-placeholder">🎤</div>
+                        <!-- Replace with: <img src="event1.jpg" alt="Concert Name"> -->
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">Dec 2024</div>
+                        <h3 class="event-title">Major Music Festival</h3>
+                        <p class="event-venue">Bukit Jalil Stadium, KL</p>
+                        <p class="event-description">Successfully helped 150+ attendees skip 2-hour queues and get direct entry to the main stage area.</p>
+                        <span class="event-success">✓ Mission Accomplished</span>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <div class="event-placeholder">🎸</div>
+                        <!-- Replace with: <img src="event2.jpg" alt="Concert Name"> -->
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">Nov 2024</div>
+                        <h3 class="event-title">Rock Concert Night</h3>
+                        <p class="event-venue">Stadium Merdeka, KL</p>
+                        <p class="event-description">Coordinated fast-track entry for 80+ rock fans, saving them hours of waiting time.</p>
+                        <span class="event-success">✓ Mission Accomplished</span>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <div class="event-placeholder">🎵</div>
+                        <!-- Replace with: <img src="event3.jpg" alt="Concert Name"> -->
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">Oct 2024</div>
+                        <h3 class="event-title">Pop Stars Live</h3>
+                        <p class="event-venue">Axiata Arena, KL</p>
+                        <p class="event-description">Provided VIP-style entry experience for 200+ pop music enthusiasts.</p>
+                        <span class="event-success">✓ Mission Accomplished</span>
+                    </div>
+                </div>
+
+                <!-- Event Card 4 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <div class="event-placeholder">🎺</div>
+                        <!-- Replace with: <img src="event4.jpg" alt="Concert Name"> -->
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">Sep 2024</div>
+                        <h3 class="event-title">Jazz & Blues Night</h3>
+                        <p class="event-venue">Istana Budaya, KL</p>
+                        <p class="event-description">Smooth coordination for intimate venue with 50+ jazz lovers getting priority access.</p>
+                        <span class="event-success">✓ Mission Accomplished</span>
+                    </div>
+                </div>
+
+                <!-- Event Card 5 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <div class="event-placeholder">🎹</div>
+                        <!-- Replace with: <img src="event5.jpg" alt="Concert Name"> -->
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">Aug 2024</div>
+                        <h3 class="event-title">Electronic Music Fest</h3>
+                        <p class="event-venue">Sunway Lagoon, Selangor</p>
+                        <p class="event-description">Beat the massive crowds with fast-lane entry for 300+ EDM fans.</p>
+                        <span class="event-success">✓ Mission Accomplished</span>
+                    </div>
+                </div>
+
+                <!-- Event Card 6 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <div class="event-placeholder">🎻</div>
+                        <!-- Replace with: <img src="event6.jpg" alt="Concert Name"> -->
+                    </div>
+                    <div class="event-info">
+                        <div class="event-date">Jul 2024</div>
+                        <h3 class="event-title">Classical Symphony</h3>
+                        <p class="event-venue">Dewan Filharmonik, KLCC</p>
+                        <p class="event-description">Elegant entry coordination for 75+ classical music enthusiasts.</p>
+                        <span class="event-success">✓ Mission Accomplished</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Events -->
+    <section class="upcoming-events">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Upcoming Events</h2>
+            <div class="upcoming-card">
+                <h3>🔥 More Amazing Concerts Coming Soon</h3>
+                <p>We're constantly working with venues and organizers to bring you queue-cutting services for the hottest concerts and festivals in Malaysia.</p>
+                <button class="notify-button">Join Discord for Updates</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Want Your Event Here?</h2>
+            <p>Join our community and be part of the next successful queue-cutting mission</p>
+            <a href="#" class="cta-button">🎵 Join Discord Now</a>
+        </div>
+    </section>
+
+    <!-- Modal for Image Viewing -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Load navbar script -->
+    <script src="Script.js"></script>
+    <script>
+        // Modal functionality for image viewing
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.getElementsByClassName('close')[0];
+
+        // Add click event to all event cards
+        document.querySelectorAll('.event-card').forEach(card => {
+            card.addEventListener('click', function () {
+                const img = this.querySelector('img');
+                if (img) {
+                    modal.style.display = 'block';
+                    modalImg.src = img.src;
+                }
+            });
+        });
+
+        // Close modal
+        closeModal.onclick = function () {
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Notify button interaction
+        document.querySelector('.notify-button').addEventListener('click', function () {
+            alert('Redirecting to Discord server for event updates...');
+        });
+    </script>
+</body>
+</html>
